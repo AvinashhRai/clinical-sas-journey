@@ -1,0 +1,37 @@
+/*===========================================================
+Program      : Day 01 - Clinical SAS Fundamentals
+Author       : Avinash Rai
+Purpose      : Create and display a synthetic clinical
+               demographic dataset
+Repository   : clinical-sas-journey
+===========================================================*/
+
+data dm_raw;
+    input SUBJID $ AGE SEX $ RACE $ COUNTRY $ SITE $;
+    datalines;
+SUBJ001 34 M ASIAN INDIA SITE01
+SUBJ002 42 F WHITE INDIA SITE02
+SUBJ003 29 M ASIAN INDIA SITE01
+SUBJ004 51 F BLACK INDIA SITE03
+SUBJ005 38 M WHITE INDIA SITE02
+SUBJ006 45 F ASIAN INDIA SITE04
+SUBJ007 31 M BLACK INDIA SITE03
+SUBJ008 27 F ASIAN INDIA SITE01
+SUBJ009 56 M WHITE INDIA SITE05
+SUBJ010 40 F ASIAN INDIA SITE04
+;
+run;
+
+proc print data=dm_raw;
+run;
+
+proc contents data=dm_raw;
+run;
+
+proc freq data=dm_raw;
+    tables SEX;
+run;
+
+proc means data=dm_raw;
+    var AGE;
+run;
