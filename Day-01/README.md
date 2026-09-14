@@ -54,7 +54,7 @@ Basic structure:
 data dataset_name;
     /* SAS statements */
 run;
-6. PROC Step
+# 6. PROC Step
 
 PROC stands for procedure.
 
