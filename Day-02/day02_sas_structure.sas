@@ -1,12 +1,11 @@
 /*===========================================================
 Program      : Day 02 - SAS Program Structure and Libraries
 Author       : Avinash Rai
-Purpose      : Practice statements, steps, WORK, LIBNAME,
-               and library organization using synthetic data
+Purpose      : Complete practice of statements, steps, WORK,
+               permanent libraries, LIBNAME, RAW and SDTM
 Repository   : clinical-sas-journey
 ===========================================================*/
 
-/* Temporary WORK dataset */
 data work.dm_work;
     input SUBJID $ AGE SEX $;
     datalines;
@@ -18,29 +17,44 @@ SUBJ005 38 M
 ;
 run;
 
-/* Examine the dataset */
 proc contents data=work.dm_work;
 run;
 
 proc print data=work.dm_work;
 run;
 
-/* Example permanent library paths for SAS Studio */
-/* Update these paths if your SAS Studio folder differs. */
-libname RAW '/home/u64422038/SAS Training/RAW';
+libname RAW  '/home/u64422038/SAS Training/RAW';
 libname SDTM '/home/u64422038/SAS Training/SDTM';
+libname ADAM '/home/u64422038/SAS Training/ADaM';
+libname TLF  '/home/u64422038/SAS Training/TLF';
 
-/* Save a synthetic dataset to RAW */
 data RAW.dm_raw;
     set work.dm_work;
 run;
 
-/* Read the permanent RAW dataset */
 proc print data=RAW.dm_raw;
 run;
 
-/* Key principle:
-   RAW = source/minimally processed area
-   SDTM = standardized clinical trial data area
-   Traceability should be maintained between source and output.
+proc contents data=RAW.dm_raw;
+run;
+
+/* Educational RAW -> SDTM-style transfer. */
+data SDTM.DM;
+    set RAW.dm_raw;
+run;
+
+proc contents data=SDTM.DM;
+run;
+
+/* Concepts practiced:
+   - Statements end with ;
+   - DATA and PROC are SAS steps
+   - RUN; commonly terminates a step
+   - WORK is temporary
+   - Permanent libraries use LIBNAME
+   - LIBREF.DATASET identifies a dataset
+   - RAW represents source/minimally processed data
+   - SDTM represents the standardized clinical data layer
+   - Traceability and reproducibility are important
+   - Examples use synthetic data only
 */
