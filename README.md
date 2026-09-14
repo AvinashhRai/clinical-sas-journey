@@ -73,3 +73,20 @@ clinical-sas-journey/
 ├── ADaM/
 └── TLF/
 
+## Tools
+
+- SAS Studio
+- Base SAS
+- SQL
+- GitHub
+- Microsoft Excel
+
+## Objective
+
+Build practical and reproducible Clinical SAS programming skills through hands-on exercises, synthetic clinical datasets, and progressively structured programming projects.
+
+## Data Privacy
+
+All datasets and examples in this repository are synthetic and created for educational purposes.
+
+No patient data, confidential company information, proprietary documents, or real clinical trial data are included.
