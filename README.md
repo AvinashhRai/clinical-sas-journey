@@ -1,58 +1,59 @@
 # Clinical SAS Journey
 
-A structured, hands-on learning journey from pharmaceutical quality assurance to Clinical SAS Programming and Clinical Data Management.
+A structured, hands-on learning portfolio documenting my transition from pharmaceutical quality assurance to Clinical SAS Programming and Clinical Data Management.
 
 ## About Me
 
-I am a B.Pharm graduate currently working in pharmaceutical quality assurance in a GMP-regulated manufacturing environment.
+I am a B.Pharm graduate currently working as an IPQA Officer in a GMP-regulated pharmaceutical manufacturing environment.
 
-I am transitioning toward Clinical SAS Programming and Clinical Data Management, with a focus on developing practical skills in Base SAS, clinical data processing, CDISC standards, SDTM, ADaM, and clinical reporting.
+My pharmaceutical QA experience has developed a strong foundation in documentation accuracy, data integrity, traceability, GMP/cGMP compliance, and regulated processes. I am building on that foundation through hands-on learning in Base SAS, SAS Studio, SQL, clinical data management, CDISC, SDTM, and ADaM concepts.
 
 ## Learning Path
 
 - Base SAS Programming
-- SAS DATA and PROC Steps
+- DATA and PROC Steps
 - SAS Libraries and Datasets
 - Data Cleaning and Transformation
-- IF / ELSE Logic
-- WHERE Conditions
+- IF / ELSE and WHERE Logic
 - KEEP / DROP
 - PROC SORT
 - MERGE and SQL
 - Clinical Trial Data Concepts
+- CDISC Fundamentals
 - SDTM
 - ADaM
 - Tables, Listings and Figures (TLFs)
 - Clinical Data Validation
 
-## Current Progress
+## Progress
 
-### Day 01
+### Day 01 — Completed
+- SAS fundamentals
 - Base SAS vs Clinical SAS
-- DATA step
-- PROC step
+- DATA and PROC steps
 - Observations and variables
 - Character and numeric variables
 - Basic clinical data structure
+- PROC PRINT, CONTENTS, FREQ and MEANS
 
-### Day 02
+### Day 02 — Completed
 - SAS statements and steps
 - WORK library
 - Permanent libraries
-- RAW and SDTM concepts
-- Data traceability and reproducibility
+- RAW and SDTM library concepts
+- Traceability, reproducibility and data integrity
 
-### Day 03
+### Day 03 — Completed
 - IF / ELSE
 - WHERE
 - KEEP / DROP
 - Character vs numeric variables
-- Dataset observations
+- Dataset observations and counts
 - MERGE concepts
 - Duplicate records
 - Basic debugging
 
-### Day 04
+### Day 04 — In Progress
 - SAS library organization
 - RAW / SDTM / ADaM / TLF concepts
 - Practical dataset organization
@@ -62,16 +63,21 @@ I am transitioning toward Clinical SAS Programming and Clinical Data Management,
 
 ```text
 clinical-sas-journey/
-│
 ├── Day-01/
 ├── Day-02/
 ├── Day-03/
 ├── Day-04/
 ├── datasets/
+│   ├── raw/
+│   ├── sdtm/
+│   ├── adam/
+│   └── tlf/
 ├── sas-programs/
 ├── SDTM/
 ├── ADaM/
-└── TLF/
+├── TLF/
+└── documentation/
+```
 
 ## Tools
 
