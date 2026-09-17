@@ -1,0 +1,164 @@
+/* ============================================================
+   DAY 04 — SAS DATASET OPERATIONS & DATA MANIPULATION
+   Clinical SAS Journey — Avinash Rai
+   Synthetic educational data only
+   ============================================================ */
+
+/* Task 1 — Adult filtering and age grouping */
+DATA SDTM.DM;
+    SET RAW.DM;
+    WHERE AGE >= 18;
+    IF AGE < 65 THEN AGEGRP = "ADULT";
+    ELSE AGEGRP = "OLDER";
+    KEEP SUBJID AGE SEX RACE AGEGRP;
+RUN;
+
+PROC PRINT DATA=SDTM.DM;
+RUN;
+
+
+/* Task 2 — Adult dataset with selected variables */
+DATA SDTM.DM_ADULT;
+    SET RAW.DM;
+    WHERE AGE >= 18;
+    KEEP SUBJID AGE SEX COUNTRY SITE;
+RUN;
+
+PROC PRINT DATA=SDTM.DM_ADULT;
+RUN;
+
+
+/* Task 3 — Age and risk classification */
+DATA SDTM.DM_CLASSIFIED;
+    SET RAW.DM;
+    WHERE AGE >= 18;
+
+    IF AGE < 65 THEN AGEGRP = "ADULT";
+    ELSE AGEGRP = "OLDER";
+
+    IF AGE >= 65 THEN RISK_FLAG = "HIGH";
+    ELSE RISK_FLAG = "STANDARD";
+
+    KEEP SUBJID AGE SEX AGEGRP RISK_FLAG;
+RUN;
+
+PROC PRINT DATA=SDTM.DM_CLASSIFIED;
+RUN;
+
+
+/* Task 4 — Multi-variable derivation */
+DATA SDTM.DM_FINAL;
+    SET RAW.DM;
+    WHERE AGE >= 18;
+
+    IF AGE < 30 THEN AGEGRP = "YOUNG";
+    ELSE IF AGE < 65 THEN AGEGRP = "ADULT";
+    ELSE AGEGRP = "OLDER";
+
+    IF SEX = "M" THEN SEX_DESC = "MALE";
+    ELSE IF SEX = "F" THEN SEX_DESC = "FEMALE";
+
+    IF AGE >= 65 THEN AGE_FLAG = "Y";
+    ELSE AGE_FLAG = "N";
+
+    KEEP SUBJID AGE SEX AGEGRP SEX_DESC AGE_FLAG SITE;
+RUN;
+
+PROC PRINT DATA=SDTM.DM_FINAL;
+RUN;
+
+
+/* Task 5 — Classification with eligibility status */
+DATA SDTM.DM_CLASSIFIED2;
+    SET RAW.DM;
+    WHERE AGE >= 18;
+
+    IF AGE < 30 THEN AGEGRP = "YOUNG";
+    ELSE IF AGE < 65 THEN AGEGRP = "ADULT";
+    ELSE AGEGRP = "OLDER";
+
+    IF SEX = "M" THEN SEX_DESC = "MALE";
+    ELSE IF SEX = "F" THEN SEX_DESC = "FEMALE";
+
+    IF AGE >= 65 THEN AGE_FLAG = "Y";
+    ELSE AGE_FLAG = "N";
+
+    IF AGE >= 18 THEN ADULT_STATUS = "ELIGIBLE";
+
+    KEEP SUBJID AGE SEX SEX_DESC AGEGRP AGE_FLAG ADULT_STATUS SITE;
+RUN;
+
+PROC PRINT DATA=SDTM.DM_CLASSIFIED2;
+RUN;
+
+
+/* Task 6 — Filtering + derivation + KEEP/DROP */
+DATA SDTM.DM_TASK6;
+    SET RAW.DM;
+
+    WHERE AGE >= 18 AND STATUS = "ACTIVE";
+
+    IF AGE < 30 THEN AGEGRP = "YOUNG";
+    ELSE IF AGE < 65 THEN AGEGRP = "ADULT";
+    ELSE AGEGRP = "OLDER";
+
+    IF SEX = "M" THEN SEX_DESC = "MALE";
+    ELSE IF SEX = "F" THEN SEX_DESC = "FEMALE";
+
+    DROP RACE COUNTRY STATUS;
+    KEEP SUBJID AGE SEX SITE AGEGRP SEX_DESC;
+RUN;
+
+PROC PRINT DATA=SDTM.DM_TASK6;
+RUN;
+
+
+/* Task 7 — Elderly flag derivation */
+DATA SDTM.DM_TASK7;
+    SET RAW.DM;
+
+    WHERE AGE >= 18 AND STATUS = "ACTIVE";
+
+    IF AGE < 30 THEN AGEGRP = "YOUNG";
+    ELSE IF AGE < 65 THEN AGEGRP = "ADULT";
+    ELSE AGEGRP = "OLDER";
+
+    IF AGE >= 65 THEN ELDERLY_FLAG = "Y";
+    ELSE ELDERLY_FLAG = "N";
+
+    IF SEX = "M" THEN SEX_DESC = "MALE";
+    ELSE IF SEX = "F" THEN SEX_DESC = "FEMALE";
+
+    DROP RACE COUNTRY STATUS;
+    KEEP SUBJID AGE SEX SITE AGEGRP ELDERLY_FLAG SEX_DESC;
+RUN;
+
+PROC PRINT DATA=SDTM.DM_TASK7;
+RUN;
+
+
+/* Task 8 — Multi-condition clinical-style transformation */
+DATA SDTM.DM_TASK8;
+    SET RAW.DM;
+
+    WHERE AGE >= 18 AND STATUS = "ACTIVE";
+
+    IF AGE < 30 THEN AGEGRP = "YOUNG";
+    ELSE IF AGE < 65 THEN AGEGRP = "ADULT";
+    ELSE AGEGRP = "OLDER";
+
+    IF AGE >= 65 THEN AGE_FLAG = "Y";
+    ELSE AGE_FLAG = "N";
+
+    IF SEX = "M" THEN SEX_DESC = "MALE";
+    ELSE IF SEX = "F" THEN SEX_DESC = "FEMALE";
+
+    IF SITE IN ("S01","S02") THEN SITE_TYPE = "MAIN";
+    ELSE IF SITE IN ("S03","S04") THEN SITE_TYPE = "OTHER";
+
+    DROP STATUS;
+    KEEP SUBJID AGE SEX SITE AGEGRP AGE_FLAG SEX_DESC SITE_TYPE;
+RUN;
+
+PROC PRINT DATA=SDTM.DM_TASK8;
+RUN;
