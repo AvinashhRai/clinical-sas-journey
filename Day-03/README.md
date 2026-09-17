@@ -1,124 +1,82 @@
-# Day 03 — Data Manipulation, Conditions & Debugging
+# Day 03 — Libraries, Metadata, Conditions & Data Manipulation
 
 ## Status
-Completed — concepts studied and practiced.
+**Completed**
 
-## Topics Covered
+## Topics Studied
+- SAS libraries and librefs
+- LIBNAME
+- One-level and two-level dataset references
+- PROC CONTENTS
+- DATA and SET concepts
+- IF / THEN / ELSE
+- WHERE
+- KEEP / DROP
+- Character vs numeric comparisons
+- AND / OR logic
+- Observation counting
+- MERGE / JOIN concepts
+- Duplicate records
+- Missing keys and type mismatches
+- SAS Log review
+- RAW → SDTM-style transformations
 
-### IF / ELSE
-Used to create conditional logic during DATA-step processing.
+## Core Notes
+A SAS library is a logical reference to a location containing SAS datasets.
 
-```sas
-if AGE >= 18 then ELIGIBLE='Y';
-else ELIGIBLE='N';
-```
+PROC CONTENTS shows dataset metadata such as observations, variables, names, types, lengths, formats/informats and order.
 
-### WHERE
-Used to select observations that meet a condition.
+WHERE primarily filters observations. IF can filter observations and perform conditional derivations.
 
-```sas
-data adults;
-    set dm_raw;
-    where AGE >= 18;
-run;
-```
+KEEP specifies variables to retain. DROP specifies variables to remove.
 
-### IF vs WHERE
-- `IF` is DATA-step logic and can create, modify, or conditionally process variables/observations.
-- `WHERE` filters observations before they are processed by the DATA step when applicable.
-- Understanding the distinction is important for efficient and predictable SAS programming.
+MERGE can combine datasets using a common BY variable; key management and appropriate sorting are important.
 
-### KEEP and DROP
-Control which variables remain in the output dataset.
+Duplicate records must be investigated rather than blindly deleted because repeated records can be legitimate.
 
-```sas
-data dm_subset;
-    set dm_raw;
-    keep SUBJID AGE SEX RACE;
-run;
-```
+## Practice Sets Completed
+- Conditional filtering
+- Character/numeric comparisons
+- KEEP/DROP
+- Observation counting
+- MERGE concepts
+- Duplicate/key validation
+- Debugging exercises
 
-```sas
-data dm_subset;
-    set dm_raw;
-    drop COUNTRY SITE;
-run;
-```
+## Questions Answered During Practice
+**Q: What is a library?**  
+A: A logical location/reference used by SAS to access datasets.
 
-### Character vs Numeric
-- Character variables contain text and are represented with quotes when assigning values.
-- Numeric variables contain numbers and can be used directly in arithmetic comparisons.
+**Q: What is a libref?**  
+A: The short library reference assigned through LIBNAME, such as RAW or SDTM.
 
-Example:
-```sas
-if SEX='M' then MALE='Y';
-if AGE >= 18 then ADULT='Y';
-```
+**Q: What does DM mean as a one-level name?**  
+A: WORK.DM.
 
-### Counting Observations
-Dataset counts are important validation checks.
+**Q: What does PROC CONTENTS show?**  
+A: Dataset metadata/structure rather than observation rows.
 
-```sas
-proc sql;
-    select count(*) as N from dm_raw;
-quit;
-```
+**Q: CONTENTS vs PRINT?**  
+A: CONTENTS shows metadata; PRINT displays observations.
 
-A programmer should compare expected and actual counts and investigate unexpected differences.
+**Q: WHERE vs IF?**  
+A: WHERE filters observations; IF can filter and derive/modify values during DATA-step processing.
 
-### MERGE Concepts
-SAS `MERGE` can combine datasets by common variables, usually after appropriate sorting when using a BY statement.
+**Q: Why quote a value such as "M"?**  
+A: SEX is character, so character values are written as quoted strings.
 
-```sas
-proc sort data=dm_raw; by SUBJID; run;
-proc sort data=dm_other; by SUBJID; run;
+**Q: How do I investigate fewer subjects than expected?**  
+A: Check filters, joins/merges, duplicates, missing keys, type mismatches and intermediate counts.
 
-data combined;
-    merge dm_raw dm_other;
-    by SUBJID;
-run;
-```
+**Q: Should duplicate records always be removed?**  
+A: No. First determine whether repeated records are legitimate or erroneous for that dataset.
 
-### Duplicate Records
-Duplicate subject keys or repeated records must be identified and understood before downstream processing.
+## Practical Code
+- day03_data_manipulation.sas
+- day03_practice_sets.sas
 
-```sas
-proc sort data=dm_raw out=dm_sorted nodupkey;
-    by SUBJID;
-run;
-```
-
-Important: removing duplicates blindly is not a valid clinical programming practice. First determine whether the repeated records are legitimate or erroneous.
-
-### Basic Debugging
-The SAS Log should be reviewed for:
-- Errors
-- Warnings
-- Notes indicating unexpected processing
-- Variable type/length issues
-- Observation counts
-- Missing or unexpected output
-
-Example validation mindset:
-> If 500 subjects are expected but only 470 appear in the output, investigate the filtering, source data, merge conditions, duplicates, and program logic rather than assuming the result is correct.
-
-## Practical Learning
-- Apply conditions to synthetic clinical data.
-- Filter observations.
-- Keep/drop variables.
-- Count observations.
-- Understand basic dataset combination.
-- Recognize duplicate-record risks.
-- Use the SAS Log as a debugging and validation tool.
-
-## Key Takeaways
-1. `IF` and `WHERE` are not interchangeable.
-2. `KEEP` and `DROP` control variables, while `WHERE` primarily controls observations.
-3. Character and numeric variables require appropriate syntax and comparisons.
-4. Counts are useful validation checks.
-5. MERGE requires careful key management.
-6. Duplicate records must be investigated, not blindly deleted.
-7. The SAS Log is essential for debugging and quality checks.
+## Assessment
+- Practical assessment: 97/100
 
 ## Data Privacy
-All examples are synthetic and created for educational purposes. No patient data, confidential company information, proprietary documents, or real clinical-trial data are included.
+All examples are synthetic educational data only.
