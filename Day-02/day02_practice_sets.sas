@@ -2,7 +2,6 @@
 
 LIBNAME RAW '/home/u64422038/SAS Training/RAW';
 LIBNAME SDTM '/home/u64422038/SAS Training/SDTM';
-LIBNAME ADAM '/home/u64422038/SAS Training/ADAM';
 LIBNAME TLF '/home/u64422038/SAS Training/TLF';
 
 /* One-level name example: normally WORK.DM */
