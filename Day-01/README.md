@@ -1,67 +1,71 @@
 # Day 01 — Clinical SAS Fundamentals
 
 ## Status
-**Completed**
+Completed
 
-## Topics Studied
-- SAS, Base SAS and Clinical SAS
+## What I studied
+
+- What SAS is and what Base SAS means
+- Clinical SAS and how it is used in clinical trials
+- Difference between a SAS program and a SAS dataset
 - SAS datasets: observations (rows) and variables (columns)
 - DATA step and PROC step
-- INPUT, DATALINES and RUN
-- Numeric vs character variables
-- $ for character variables in INPUT
-- SAS statements vs SAS steps
-- PROC PRINT, PROC CONTENTS, PROC FREQ and PROC MEANS
-- RAW → SDTM → ADaM → TLFs → CSR
-- Basic validation/debugging mindset
-- Difference between a SAS program and a SAS dataset
+- DATA step creates/reads/transforms data
+- PROC step is used for specific procedures
+- DATALINES for entering inline data
+- INPUT statement
+- Character vs numeric variables
+- `$` in INPUT for character variables
+- `RUN;` to end a step
+- Basic SAS dataset structure using SUBJID, AGE, SEX, RACE, COUNTRY and SITE
+- PROC PRINT
+- PROC CONTENTS
+- PROC FREQ
+- PROC MEANS
 
-## Core Notes
-A SAS dataset is structured data. A SAS program contains instructions for processing that data.
+## Clinical trial data concepts I learned
 
-DATA creates or modifies datasets. PROC invokes a specific SAS procedure.
+Basic flow:
 
-Character values require appropriate character handling; $ in INPUT identifies a character variable.
+Source / Subject / Site → CRF/eCRF → EDC → cleaned/controlled clinical data → SAS programming → SDTM → ADaM → TLFs → reporting
 
-A clean SAS log does not prove clinical data are correct. Logical/data-quality errors can execute without SAS errors, so output and validation checks are required.
+- CRF = Case Report Form
+- eCRF = electronic Case Report Form
+- EDC = Electronic Data Capture
+- SDTM = Study Data Tabulation Model
+- ADaM = Analysis Data Model
+- TLF = Tables, Listings and Figures
 
-## Practice Sets Completed
-- Created a synthetic demographic dataset with SUBJID, AGE, SEX, RACE, COUNTRY and SITE.
-- Reviewed the dataset using PROC PRINT.
-- Inspected metadata using PROC CONTENTS.
-- Generated categorical frequencies using PROC FREQ.
-- Generated descriptive statistics using PROC MEANS.
+I also learned that SDTM is for standardized clinical trial tabulation data, while ADaM is used for analysis-ready data.
 
-## Questions Answered During Practice
-**Q: What is a SAS dataset?**  
-A: A structured collection of observations and variables. A dataset is data; a program is instructions.
+## Important thing I learned
 
-**Q: What is an observation?**  
-A: One row in a SAS dataset; its meaning depends on the dataset structure.
+A SAS program is the instructions/code. A SAS dataset is the structured data produced or processed by those instructions.
 
-**Q: What is a variable?**  
-A: A column/attribute in a SAS dataset.
+A clean SAS Log does not automatically mean the clinical data or programming logic is correct. A program can run without an ERROR and still produce the wrong result.
 
-**Q: What does $ mean in INPUT?**  
-A: It identifies a character variable.
+## Practice
 
-**Q: What is DATA vs PROC?**  
-A: DATA creates/modifies datasets; PROC invokes procedures for specific operations.
+Created synthetic demographic datasets and used:
 
-**Q: Does a clean log prove correctness?**  
-A: No. Clinical data must also be checked for logical and data-quality problems.
+- PROC PRINT to view observations
+- PROC CONTENTS to inspect dataset structure/metadata
+- PROC FREQ to check categorical values
+- PROC MEANS to check numeric summary statistics
 
-**Q: What are SDTM and ADaM?**  
-A: SDTM provides standardized clinical trial tabulation structures; ADaM provides analysis-ready data structures.
+## Questions / clarifications from Day 1
 
-## Practical Code
-- day01_basics.sas
-- day01_practice_sets.sas
+- What an observation and variable mean in SAS
+- Why `$` is used for character variables
+- DATA vs PROC
+- SAS dataset vs SAS program
+- SDTM vs ADaM
+- Why validation is still required even when the Log is clean
+- How to investigate when the number of subjects/observations is not what was expected
 
 ## Assessment
+
 - Theory quiz: 89/100
 - Practical: 95/100
-- Overall learning assessment: approximately 86/100
 
-## Data Privacy
-All examples are synthetic educational data only.
+All examples are synthetic educational data.
