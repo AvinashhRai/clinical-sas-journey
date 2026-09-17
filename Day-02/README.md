@@ -1,55 +1,73 @@
 # Day 02 — SAS Program Structure, Libraries & Data Traceability
 
 ## Status
-Completed — concepts studied and practiced.
+**Completed**
 
-## Topics Covered
+## Topics Studied
+- SAS Studio Editor, Log and Results/Output
+- DATA and PROC steps
+- Statements vs steps
+- Comments and RUN
+- WORK library
+- One-level vs two-level dataset names
+- LIBNAME and permanent libraries
+- RAW and SDTM organization
+- Source-data preservation
+- Traceability, reproducibility and data integrity
+- Clinical programming workflow
 
-### SAS Statements vs SAS Steps
-- A SAS statement is an instruction that normally ends with `;`.
-- A SAS step is a group of statements performing a specific task.
-- DATA and PROC steps are commonly terminated with `RUN;`.
+## Core Notes
+SAS Studio flow: Editor → Run → SAS processing → Log → Results/Output.
 
-### WORK Library
-- Temporary SAS library.
-- Datasets stored in WORK normally exist only for the current SAS session.
-- Useful for intermediate datasets and temporary processing.
+The Log contains processing messages, NOTE/WARNING/ERROR information and execution details. Actual dataset output is viewed in Results/Output.
 
-### Permanent Libraries
-Permanent libraries store datasets outside WORK so they can be reused across SAS sessions.
+WORK is temporary; its defining feature is session persistence, not dataset size.
 
-Example:
-```sas
-libname RAW '/home/u64422038/SAS Training/RAW';
-libname SDTM '/home/u64422038/SAS Training/SDTM';
-```
+A permanent library can be referenced with LIBNAME, for example:
+LIBNAME RAW '/home/u64422038/SAS Training/RAW';
 
-### RAW and SDTM
-- RAW represents source or minimally processed clinical data.
-- SDTM represents standardized clinical trial tabulation data.
-- The transformation should remain traceable and reproducible.
+A one-level name such as DM normally refers to WORK.DM. SDTM.DM means libref SDTM plus dataset DM.
 
-### Traceability
-A programmer should be able to understand where an output came from and how it was derived.
+LIBNAME establishes the association between a libref and a physical location; it does not itself create a missing physical folder.
 
-### Reproducibility
-The same source data and validated program should produce the expected result when rerun under the same conditions.
+RAW preserves source/input data. SDTM represents standardized clinical tabulation data. Source data should not be overwritten.
 
-### Data Integrity
-Clinical programming requires accurate, complete, consistent, attributable and traceable data processing.
+## Practice Sets Completed
+- Library setup and libref exercises
+- WORK vs permanent library exercises
+- RAW/SDTM organization
+- Source-preservation and traceability exercises
+- SAS Studio Log/Results interpretation
 
-## Practical Learning
-- Creating libraries with `LIBNAME`
-- Understanding temporary vs permanent datasets
-- Organizing RAW and SDTM areas
-- Thinking about source-to-output traceability
+## Questions Answered During Practice
+**Q: What is a statement vs a step?**  
+A: A statement is an individual instruction; a step is a group of statements performing a task.
 
-## Key Takeaways
-1. WORK is temporary.
-2. Permanent libraries preserve datasets beyond the SAS session.
-3. LIBNAME assigns a library reference to a physical location.
-4. RAW and SDTM have different roles in the clinical data flow.
-5. Traceability and reproducibility are fundamental in regulated clinical programming.
+**Q: Is WORK only for small datasets?**  
+A: No. WORK is temporary.
+
+**Q: What does LIBNAME do?**  
+A: It assigns a libref to a physical location so SAS can reference datasets there.
+
+**Q: Does LIBNAME create the folder?**  
+A: No. The physical location must exist and be accessible.
+
+**Q: Why use RAW → SDTM rather than overwrite RAW?**  
+A: Preserving source data supports traceability, reproducibility, data integrity and auditability.
+
+**Q: What does SDTM.DM mean?**  
+A: SDTM is the libref and DM is the dataset name.
+
+**Q: Where are actual dataset results shown?**  
+A: Results/Output; the Log primarily contains processing information.
+
+## Practical Code
+- day02_sas_structure.sas
+- day02_practice_sets.sas
+
+## Assessment
+- Theory/practical quiz: 95/100
+- Practical: 92/100
 
 ## Data Privacy
-All examples are synthetic and educational. No patient, employer-confidential, or real clinical-trial data are included.
+All examples are synthetic educational data only.
