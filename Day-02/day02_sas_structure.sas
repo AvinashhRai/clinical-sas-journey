@@ -25,7 +25,6 @@ run;
 
 libname RAW  '/home/u64422038/SAS Training/RAW';
 libname SDTM '/home/u64422038/SAS Training/SDTM';
-libname ADAM '/home/u64422038/SAS Training/ADaM';
 libname TLF  '/home/u64422038/SAS Training/TLF';
 
 data RAW.dm_raw;
