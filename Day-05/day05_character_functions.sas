@@ -1,0 +1,175 @@
+/* ============================================================
+   DAY 05 — SAS CHARACTER FUNCTIONS
+   Clinical SAS Journey — Avinash Rai
+   Synthetic educational data only
+   ============================================================ */
+
+/* Standardize character values */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_STD = UPCASE(STRIP(SITE));
+    COUNTRY_STD = UPCASE(STRIP(COUNTRY));
+
+    KEEP SUBJID SITE COUNTRY SITE_STD COUNTRY_STD ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Remove spaces from SITE */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_CLEAN = COMPRESS(SITE);
+
+    KEEP SUBJID SITE SITE_CLEAN ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Extract part of SITE */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_PREFIX = SUBSTR(SITE,1,3);
+
+    KEEP SUBJID SITE SITE_PREFIX ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Character length */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_LENGTH = LENGTH(SITE);
+
+    KEEP SUBJID SITE SITE_LENGTH ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Find text position */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_POS = INDEX(SITE,"S");
+
+    KEEP SUBJID SITE SITE_POS ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Extract token */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_NUM = SCAN(SITE,2,"S");
+
+    KEEP SUBJID SITE SITE_NUM ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Concatenate with separator */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_SUBJID = CATX("-",SITE,SUBJID);
+
+    KEEP SUBJID SITE SITE_SUBJID ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Concatenate without separator and remove leading/trailing blanks */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_SUBJID = CATS(SITE,SUBJID);
+
+    KEEP SUBJID SITE SITE_SUBJID ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Replace text */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    COUNTRY_STD = TRANWRD(COUNTRY,"IND","INDIA");
+
+    KEEP SUBJID COUNTRY COUNTRY_STD ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Find text using FIND */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_FIND_POS = FIND(SITE,"S");
+
+    KEEP SUBJID SITE SITE_FIND_POS ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Find first digit */
+DATA SDTM.DM ;
+    SET RAW.DM ;
+
+    SITE_DIGIT_POS = ANYDIGIT(SITE);
+
+    KEEP SUBJID SITE SITE_DIGIT_POS ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM ;
+RUN ;
+
+
+/* Day 05 combined practice */
+DATA SDTM.DM_DAY5 ;
+    SET RAW.DM ;
+
+    SITE_STD = UPCASE(STRIP(SITE));
+    COUNTRY_STD = UPCASE(STRIP(COUNTRY));
+    SITE_CLEAN = COMPRESS(SITE);
+    SITE_PREFIX = SUBSTR(SITE,1,3);
+    SITE_LENGTH = LENGTH(SITE);
+    SITE_POS = INDEX(SITE,"S");
+    SITE_NUM = SCAN(SITE,2,"S");
+    SITE_SUBJID = CATX("-",SITE,SUBJID);
+    SITE_SUBJID_CLEAN = CATS(SITE,SUBJID);
+    COUNTRY_STD2 = TRANWRD(COUNTRY,"IND","INDIA");
+    SITE_FIND_POS = FIND(SITE,"S");
+    SITE_DIGIT_POS = ANYDIGIT(SITE);
+
+    KEEP SUBJID SITE COUNTRY
+         SITE_STD COUNTRY_STD SITE_CLEAN SITE_PREFIX SITE_LENGTH
+         SITE_POS SITE_NUM SITE_SUBJID SITE_SUBJID_CLEAN
+         COUNTRY_STD2 SITE_FIND_POS SITE_DIGIT_POS ;
+RUN ;
+
+PROC PRINT DATA=SDTM.DM_DAY5 ;
+RUN ;
